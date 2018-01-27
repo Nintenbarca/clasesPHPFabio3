@@ -18,7 +18,6 @@
     body {
     padding-top: 20px;
     padding-bottom: 20px; 
-    background-image: url('http://www.diariomotor.com/imagenes/picscache/1440x655c/peso-coches-modernos-4_1440x655c.jpg');    
     }
 
     .navbar {
@@ -58,7 +57,6 @@
 
 <div class="container">    
       <!-- Static navbar -->      
-      <img class="logo" src="http://www.michelin.com.pe/pe/sobre-nosotros/el-muneco-michelin/SobreNosCollection/00/imageBinary/bib01.jpg">
       <nav class="navbar navbar-default">                    
         <div class="container-fluid">          
           <div class="navbar-header">
