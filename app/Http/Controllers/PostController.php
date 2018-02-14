@@ -55,7 +55,6 @@ class PostController extends Controller
         $post->contenido = $datos['contenido'];
         $post->categoria = $datos['categoria'];
         $post->palabras = $datos['palabras'];  
-        $post->fecha = time()+3600;      
         $post->save();
         $this->index();
     }
