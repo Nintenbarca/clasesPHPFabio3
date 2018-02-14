@@ -77,9 +77,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
+        
+        $post = Post::findOrFail($id);
+
+        return view('post/editar', compact('post')); 
     }
 
     /**
@@ -89,9 +91,24 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+        
+        $datos = $request->validate([
+            'titulo' => 'required|string|max:50', 
+            'resumen' => 'required|string|max:100', 
+            'contenido' => 'required|string|max:255', 
+            'categoria' => 'required',             
+            'palabras' => 'required|string|max:100'
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->titulo = $datos['titulo'];
+        $post->resumen = $datos['resumen'];
+        $post->contenido = $datos['contenido'];
+        $post->categoria = $datos['categoria'];
+        $post->palabras = $datos['palabras'];        
+        $post->save();
+        $this->index();
     }
 
     /**
