@@ -24,9 +24,9 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create(){
+
+        return view('categoria/nueva');
     }
 
     /**
@@ -35,9 +35,18 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+
+        $datos = $request->validate([
+            'nombre' => 'required|string|max:50', 
+            'descripcion' => 'required|string|max:255'
+        ]);
+
+        $categoria = new Categoria();
+        $categoria->nombre = $datos['nombre'];
+        $categoria->descripcion = $datos['descripcion'];
+        $categoria->save();
+        $this->index();
     }
 
     /**
