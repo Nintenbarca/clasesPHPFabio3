@@ -15,10 +15,9 @@ Route::get('/', function () {
     return view('home2');
 });
 
-Route::resources([
-    'posts' => 'PostController',
-    'categorias' => 'CategoriaController'
-]);
+Route::resource('categorias', 'CategoriaController', ['except' => ['destroy']]);
+
+Route::resource('posts', 'PostController');
 
 Auth::routes();
 
