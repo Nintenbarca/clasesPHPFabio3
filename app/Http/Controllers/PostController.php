@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+use App\Categoria;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -11,9 +13,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        
+        $posts = Post::all();
+        //$categoria = Categoria::findOrFail($id);
+
+        return view('post/lista', compact('posts'));
     }
 
     /**

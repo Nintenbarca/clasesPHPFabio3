@@ -69,7 +69,8 @@
           </div>          
           <div id="navbar" class="navbar-collapse collapse"> 
             <ul class="nav navbar-nav">
-              <li><a href="/">Inicio</a></li><br>             
+              <li><a href="/">Inicio</a></li>
+              <li><a href="{{ route('posts.index') }}">Posts</a></li>
               <li><form class="buscador" action="{{ url('/search') }}" method="GET">
                 <input type="search" name="query">
                 <input class="btn btn-primary btn-sm" type="submit" value="Buscar">
