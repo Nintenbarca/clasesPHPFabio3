@@ -51,12 +51,13 @@ class PostController extends Controller
 
         $post = new Post();
         $post->titulo = $datos['titulo'];
+        $post->slug = implode('_', explode(' ', $datos['titulo']));
         $post->resumen = $datos['resumen'];
         $post->contenido = $datos['contenido'];
         $post->categoria = $datos['categoria'];
         $post->palabras = $datos['palabras'];  
         $post->save();
-        $this->index();
+        return $this->index();
     }
 
     /**
