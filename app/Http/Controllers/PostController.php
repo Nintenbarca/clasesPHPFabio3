@@ -26,9 +26,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+
+        $categorias = Categoria::all();
+        
+        return view('post/nuevo', compact('categorias'));
     }
 
     /**
@@ -37,9 +39,25 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        
+        $datos = $request->validate([
+            'titulo' => 'required|string|max:50', 
+            'resumen' => 'required|string|max:100', 
+            'contenido' => 'required|string|max:255', 
+            'categoria' => 'required',             
+            'palabras' => 'required|string|max:100'
+        ]);
+
+        $post = new Post();
+        $post->titulo = $datos['titulo'];
+        $post->resumen = $datos['resumen'];
+        $post->contenido = $datos['contenido'];
+        $post->categoria = $datos['categoria'];
+        $post->palabras = $datos['palabras'];  
+        $post->fecha = time()+3600;      
+        $post->save();
+        $this->index();
     }
 
     /**
