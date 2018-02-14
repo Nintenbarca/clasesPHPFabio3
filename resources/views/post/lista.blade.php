@@ -17,6 +17,9 @@ use App\Categoria;
 		<p>{{ $post->resumen }}</p>
 		<p>{{ $post->created_at->format('d/m/Y') }}</p>		
 		<p><span class="label label-info">{{ Categoria::findOrFail($post->categoria)->nombre }}</span></p>
+		{{ Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'delete']) }}
+		{{ Form::submit('Borrar') }}
+		{{ Form::close() }}
 	</li>
 	@endforeach	
 	<br>
