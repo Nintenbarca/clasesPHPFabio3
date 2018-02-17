@@ -8,16 +8,14 @@
                 <div class="panel-heading">Editar Post</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ url('/posts') }}/{{ $post->id }}">
-                        {{ csrf_field() }}
-
-                        <input type="hidden" name="id" value="{{$post->id}}">
+                    {{ Form::model($post, array('route' => array('posts.update', $post->id), 'method' => 'PUT', 'class' => 'form-horizontal')) }}
 
                         <div class="form-group{{ $errors->has('titulo') ? ' has-error' : '' }}">
-                            <label for="titulo" class="col-md-4 control-label">Titulo</label>
-
-                            <div class="col-md-6">
-                                <input id="titulo" type="text" class="form-control" name="titulo" value="{{ $post->titulo }}" required autofocus>
+                            <div class="col-md-3">
+                                {{ Form::label('titulo', 'Titulo') }}
+                            </div>
+                            <div class="col-md-9">
+                                {{ Form::text('titulo', $post->titulo, array('class' => 'form-control')) }}
 
                                 @if ($errors->has('titulo'))
                                     <span class="help-block">
@@ -28,10 +26,11 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('resumen') ? ' has-error' : '' }}">
-                            <label for="resumen" class="col-md-4 control-label">Resumen</label>
-
-                            <div class="col-md-6">
-                                <input id="resumen" type="text" class="form-control" name="resumen" value="{{ $post->resumen }}" required autofocus>
+                            <div class="col-md-3">
+                                {{ Form::label('resumen', 'Resumen') }}
+                            </div>
+                            <div class="col-md-9">
+                                {{ Form::text('resumen', $post->resumen, array('class' => 'form-control')) }}
 
                                 @if ($errors->has('resumen'))
                                     <span class="help-block">
@@ -42,10 +41,11 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('contenido') ? ' has-error' : '' }}">
-                            <label for="contenido" class="col-md-4 control-label">Contenido</label>
-
-                            <div class="col-md-6">
-                                <textarea id="contenido" class="form-control" name="contenido" required>{{ $post->contenido }}</textarea>                        
+                            <div class="col-md-3"> 
+                                {{ Form::label('contenido', 'Contenido') }}
+                            </div>
+                            <div class="col-md-9">
+                                {{ Form::text('contenido', $post->contenido, array('class' => 'form-control'))}}
 
                                 @if ($errors->has('contenido'))
                                     <span class="help-block">
@@ -56,10 +56,11 @@
                         </div>  
 
                         <div class="form-group{{ $errors->has('palabras') ? ' has-error' : '' }}">
-                            <label for="palabras" class="col-md-4 control-label">Palabras</label>
-
-                            <div class="col-md-6">
-                                <input id="palabras" type="text" class="form-control" name="palabras" value="{{ $post->palabras }}" required autofocus>
+                            <div class="col-md-3">
+                                {{ Form::label('palabras', 'Palabras') }}
+                            </div>
+                            <div class="col-md-9">
+                                {{ Form::text('palabras', $post->palabras, array('class' => 'form-control')) }}
 
                                 @if ($errors->has('palabras'))
                                     <span class="help-block">
@@ -70,22 +71,11 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('categoria') ? ' has-error' : '' }}">
-                            <label for="categoria" class="col-md-4 control-label">Categoria</label>
-
-                            <div class="col-md-6">
-                                <select id="categoria" class="form-control" name="categoria" required autofocus>
-
-                                    @foreach($categorias as $categoria)
-                                    <option value="{{$categoria->id}}" 
-                                        @if({{ $categoria->id }} == 
-                                        {{ $post->categoria }})
-                                            selected
-                                        @endif
-                                    >{{$categoria->nombre}}</option>
-
-                                    @endforeach                                   
-
-                                </select>  
+                            <div class="col-md-3">
+                                {{ Form::label('categoria', 'Categoria') }}
+                            </div>
+                            <div class="col-md-9">
+                                {{ Form::select('categoria', $categorias) }}
 
                                 @if ($errors->has('categoria'))
                                     <span class="help-block">
@@ -96,10 +86,8 @@
                         </div>                      
 
                         <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Guardar
-                                </button>                                
+                            <div class="col-md-9 col-md-offset-3">
+                                {{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}                                
                             </div>
                         </div>
                         

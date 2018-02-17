@@ -81,8 +81,12 @@ class PostController extends Controller
     public function edit($id){
         
         $post = Post::findOrFail($id);
+        $categorias = Categoria::all()->toArray();
+        $ids = array_column($categorias, 'id');
+        $nombres = array_column($categorias, 'nombre');
+        $categorias = array_combine($ids, $nombres);
 
-        return view('post/editar', compact('post')); 
+        return view('post/editar', compact('post', 'categorias')); 
     }
 
     /**
@@ -109,7 +113,7 @@ class PostController extends Controller
         $post->categoria = $datos['categoria'];
         $post->palabras = $datos['palabras'];        
         $post->save();
-        $this->index();
+        return $this->show($id);
     }
 
     /**
