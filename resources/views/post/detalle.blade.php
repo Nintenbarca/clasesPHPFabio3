@@ -17,7 +17,7 @@ use App\Categoria;
 		<p><span class="label label-info">{{ Categoria::findOrFail($post->categoria)->nombre }}</span></p>
 		<p><a href="{{ url('/posts') }}/{{ $post->id }}/edit" class="btn btn-primary btn-sm">Editar</a></p>
 		{{ Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'delete']) }}
-		{{ Form::submit('Borrar') }}
+		{{ Form::submit('Borrar', array('class' => 'btn btn-danger btn-sm')) }}
 		{{ Form::close() }}
 	</li>
 </ul>

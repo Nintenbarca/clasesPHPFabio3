@@ -16,7 +16,6 @@ class PostController extends Controller
     public function index(){
         
         $posts = Post::all();
-        //$categoria = Categoria::findOrFail($id);
 
         return view('post/lista', compact('posts'));
     }
