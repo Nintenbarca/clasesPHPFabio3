@@ -9,7 +9,7 @@
 	<li class="list-group-item">	
 		<h2><span class="label label-info">{{ $categoria->nombre }}</span></h2>
 		<p>{{ $categoria->descripcion }}</p>
-		<a href="{{ url('/categorias') }}/{{ $categoria->id }}/edit" class="btn btn-primary btn-sm">Editar</a>		
+		<a href="{{ route('categorias.edit', $categoria->id) }}" class="btn btn-primary btn-sm">Editar</a>		
 	</li>
 	@endforeach	
 	<br>

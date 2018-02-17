@@ -46,9 +46,8 @@ class CategoriaController extends Controller
         $categoria->nombre = $datos['nombre'];
         $categoria->descripcion = $datos['descripcion'];
         $categoria->save();
-        $this->index();
-    }
-
+        return $this->index();
+    }    
 
     /**
      * Show the form for editing the specified resource.
@@ -56,9 +55,11 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
+
+        $categoria = Categoria::findOrFail($id);
+
+        return view('categoria/editar', compact('categoria'));        
     }
 
     /**
@@ -68,10 +69,18 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    public function update(Request $request, $id){
+        
+        $datos = $request->validate([
+            'nombre' => 'required|string|max:50', 
+            'descripcion' => 'required|string|max:255'
+        ]);
+
+        $categoria = Categoria::findOrFail($id);
+        $categoria->nombre = $datos['nombre'];
+        $categoria->descripcion = $datos['descripcion'];
+        $categoria->save();
+        return $this->index();
 
     }
 
