@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('home2');
 });
 
-Route::resource('categorias', 'CategoriaController', ['except' => ['destroy']]);
+Route::resource('categorias', 'CategoriaController', ['except' => ['show', 'destroy']]);
 
 Route::resource('posts', 'PostController');
 
