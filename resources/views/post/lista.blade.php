@@ -13,13 +13,10 @@ use App\Categoria;
 <ul class="list-group">		
 	@foreach ($posts as $post)		       
 	<li class="list-group-item">	
-		<h2>{{ $post->titulo }}</h2>
+		<h2><a href="{{ route('posts.show', $post->id) }}">{{ $post->titulo }}</a></h2>
 		<p>{{ $post->resumen }}</p>
 		<p>{{ $post->created_at->format('d/m/Y') }}</p>		
-		<p><span class="label label-info">{{ Categoria::findOrFail($post->categoria)->nombre }}</span></p>
-		{{ Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'delete']) }}
-		{{ Form::submit('Borrar') }}
-		{{ Form::close() }}
+		<p><span class="label label-info">{{ Categoria::findOrFail($post->categoria)->nombre }}</span></p>		
 	</li>
 	@endforeach	
 	<br>

@@ -66,9 +66,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id){
+        
+        $post = Post::findOrFail($id);
+
+        return view('post/detalle', compact('post'));
     }
 
     /**
