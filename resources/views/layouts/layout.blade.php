@@ -71,7 +71,9 @@
             <ul class="nav navbar-nav">
               <li><a href="/">Inicio</a></li>
               <li><a href="{{ route('posts.index') }}">Posts</a></li>
-              <li><a href="{{ route('categorias.index') }}">Categorias</a></li><br>             
+              @if (!Auth::guest())
+              <li><a href="{{ route('categorias.index') }}">Categorias</a></li><br>
+              @endif            
               <li><form class="buscador" action="{{ url('/search') }}" method="GET">
                 <input type="search" name="query">
                 <input class="btn btn-primary btn-sm" type="submit" value="Buscar">
