@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Categoria;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -27,9 +28,17 @@ class PostController extends Controller
      */
     public function create() {
 
-        $categorias = Categoria::all();
+        if (!Auth::guest()) {
+
+            $categorias = Categoria::all();
         
-        return view('post/nuevo', compact('categorias'));
+            return view('post/nuevo', compact('categorias'));
+        }else{
+
+            return redirect('/login');
+        }
+
+        
     }
 
     /**
@@ -39,24 +48,30 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        
-        $datos = $request->validate([
-            'titulo' => 'required|string|max:50', 
-            'resumen' => 'required|string|max:100', 
-            'contenido' => 'required|string|max:255', 
-            'categoria' => 'required',             
-            'palabras' => 'required|string|max:100'
-        ]);
 
-        $post = new Post();
-        $post->titulo = $datos['titulo'];
-        $post->slug = implode('_', explode(' ', $datos['titulo']));
-        $post->resumen = $datos['resumen'];
-        $post->contenido = $datos['contenido'];
-        $post->categoria = $datos['categoria'];
-        $post->palabras = $datos['palabras'];  
-        $post->save();
-        return $this->index();
+        if (!Auth::guest()) {
+            
+            $datos = $request->validate([
+                'titulo' => 'required|string|max:50', 
+                'resumen' => 'required|string|max:100', 
+                'contenido' => 'required|string|max:255', 
+                'categoria' => 'required',             
+                'palabras' => 'required|string|max:100'
+            ]);
+
+            $post = new Post();
+            $post->titulo = $datos['titulo'];
+            $post->slug = implode('_', explode(' ', $datos['titulo']));
+            $post->resumen = $datos['resumen'];
+            $post->contenido = $datos['contenido'];
+            $post->email = Auth::user()->email;
+            $post->categoria = $datos['categoria'];
+            $post->palabras = $datos['palabras'];  
+            $post->save();            
+            return $this->index();
+        }else{
+            return redirect('/login');
+        } 
     }
 
     /**

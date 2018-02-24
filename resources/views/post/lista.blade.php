@@ -21,7 +21,11 @@ use App\Categoria;
 	@endforeach	
 	<br>
 
+	@if(!Auth::guest())
+
 	<p><a href="{{ route('posts.create') }}" class="btn btn-primary btn-sm">Añadir post</a></p>
+
+	@endif
 
 
 </ul>
