@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categoria;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -14,9 +15,15 @@ class CategoriaController extends Controller
      */
     public function index(){
 
-        $categorias = Categoria::all();
+        if (!Auth::guest()) {
+            
+            $categorias = Categoria::all();
 
-        return view('categoria/lista', compact('categorias'));
+            return view('categoria/lista', compact('categorias'));
+        }else{
+
+            return redirect('/login');
+        }
     }
 
     /**
@@ -26,7 +33,12 @@ class CategoriaController extends Controller
      */
     public function create(){
 
-        return view('categoria/nueva');
+        if (!Auth::guest()) {
+
+            return view('categoria/nueva');
+        }else{
+            return redirect('/login');
+        }
     }
 
     /**
@@ -37,16 +49,21 @@ class CategoriaController extends Controller
      */
     public function store(Request $request){
 
-        $datos = $request->validate([
+        if (!Auth::guest()) {
+            
+            $datos = $request->validate([
             'nombre' => 'required|string|max:50', 
             'descripcion' => 'required|string|max:255'
-        ]);
+            ]);
 
-        $categoria = new Categoria();
-        $categoria->nombre = $datos['nombre'];
-        $categoria->descripcion = $datos['descripcion'];
-        $categoria->save();
-        return $this->index();
+            $categoria = new Categoria();
+            $categoria->nombre = $datos['nombre'];
+            $categoria->descripcion = $datos['descripcion'];
+            $categoria->save();
+            return $this->index();
+        }else{
+            return redirect('/login');
+        }
     }    
 
     /**
@@ -57,9 +74,14 @@ class CategoriaController extends Controller
      */
     public function edit($id){
 
-        $categoria = Categoria::findOrFail($id);
+        if (!Auth::guest()) {
+            
+            $categoria = Categoria::findOrFail($id);
 
-        return view('categoria/editar', compact('categoria'));        
+            return view('categoria/editar', compact('categoria'));
+        }else{
+            return redirect('/login');
+        }
     }
 
     /**
@@ -70,18 +92,22 @@ class CategoriaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        
-        $datos = $request->validate([
+
+        if (!Auth::guest()) {
+            
+            $datos = $request->validate([
             'nombre' => 'required|string|max:50', 
             'descripcion' => 'required|string|max:255'
-        ]);
+            ]);
 
-        $categoria = Categoria::findOrFail($id);
-        $categoria->nombre = $datos['nombre'];
-        $categoria->descripcion = $datos['descripcion'];
-        $categoria->save();
-        return $this->index();
-
+            $categoria = Categoria::findOrFail($id);
+            $categoria->nombre = $datos['nombre'];
+            $categoria->descripcion = $datos['descripcion'];
+            $categoria->save();
+            return $this->index();
+        }else{
+            return redirect('/login');
+        }
     }
 
 }
