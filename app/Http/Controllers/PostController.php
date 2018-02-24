@@ -64,7 +64,7 @@ class PostController extends Controller
             $post->slug = implode('_', explode(' ', $datos['titulo']));
             $post->resumen = $datos['resumen'];
             $post->contenido = $datos['contenido'];
-            $post->email = Auth::user()->email;
+            $post->user_id = Auth::user()->id;
             $post->categoria = $datos['categoria'];
             $post->palabras = $datos['palabras'];  
             $post->save();            

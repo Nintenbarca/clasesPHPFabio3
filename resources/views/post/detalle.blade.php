@@ -5,12 +5,14 @@
 <?php
 
 use App\Categoria;
+use App\User;
 
 ?>
 
 <ul class="list-group">				       
 	<li class="list-group-item">	
 		<h2>{{ $post->titulo }}</h2>
+		<p>Autor: {{ User::findOrFail($post->user_id)->name }}</p>
 		<p>{{ $post->palabras }}</p>
 		<p>{{ $post->contenido }}</p>
 		<p>{{ $post->created_at->format('d/m/Y') }}</p>		

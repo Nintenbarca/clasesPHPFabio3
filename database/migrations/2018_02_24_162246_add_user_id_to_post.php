@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUserEmailToPost extends Migration
+class AddUserIdToPost extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,10 @@ class AddUserEmailToPost extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            if(Schema::hasTable('users') && Schema::hasColumn('users', 'email')){
-                $table->string('email')->after('contenido');
-                $table->index('email');
-                $table->foreign('email')->references('email')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            if(Schema::hasTable('users') && Schema::hasColumn('users', 'id')){
+                $table->integer('user_id')->unsigned()->after('contenido');
+                $table->index('user_id');
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             }
         });
     }
@@ -30,8 +30,8 @@ class AddUserEmailToPost extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropForeign('posts_email_foreign');
-            $table->dropColumn('email');
+            $table->dropForeign('posts_user_id_foreign');
+            $table->dropColumn('user_id');
         });
     }
 }
