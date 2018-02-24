@@ -94,14 +94,21 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        
-        $post = Post::findOrFail($id);
-        $categorias = Categoria::all()->toArray();
-        $ids = array_column($categorias, 'id');
-        $nombres = array_column($categorias, 'nombre');
-        $categorias = array_combine($ids, $nombres);
 
-        return view('post/editar', compact('post', 'categorias')); 
+        if (!Auth::guest()) {
+            
+            $post = Post::findOrFail($id);
+               
+            $categorias = Categoria::all()->toArray();
+            $ids = array_column($categorias, 'id');
+            $nombres = array_column($categorias, 'nombre');
+            $categorias = array_combine($ids, $nombres);
+
+            return view('post/editar', compact('post', 'categorias')); 
+        }else{
+
+            return redirect('/login');
+        }
     }
 
     /**
@@ -112,23 +119,28 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        
-        $datos = $request->validate([
+
+        if (!Auth::guest()) {
+            
+            $datos = $request->validate([
             'titulo' => 'required|string|max:50', 
             'resumen' => 'required|string|max:100', 
             'contenido' => 'required|string|max:255', 
             'categoria' => 'required',             
             'palabras' => 'required|string|max:100'
-        ]);
+            ]);
 
-        $post = Post::findOrFail($id);
-        $post->titulo = $datos['titulo'];
-        $post->resumen = $datos['resumen'];
-        $post->contenido = $datos['contenido'];
-        $post->categoria = $datos['categoria'];
-        $post->palabras = $datos['palabras'];        
-        $post->save();
-        return $this->show($id);
+            $post = Post::findOrFail($id);
+            $post->titulo = $datos['titulo'];
+            $post->resumen = $datos['resumen'];
+            $post->contenido = $datos['contenido'];        
+            $post->categoria = $datos['categoria'];
+            $post->palabras = $datos['palabras'];        
+            $post->save();
+            return $this->show($id);
+        }else{
+            return redirect('/login');
+        } 
     }
 
     /**
