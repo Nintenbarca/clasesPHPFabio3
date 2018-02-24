@@ -10,11 +10,10 @@
                 <div class="panel-body">
                     {{ Form::model($post, array('route' => array('posts.update', $post->id), 'method' => 'PUT', 'class' => 'form-horizontal')) }}
 
-                        <div class="form-group{{ $errors->has('titulo') ? ' has-error' : '' }}">
-                            <div class="col-md-3">
-                                {{ Form::label('titulo', 'Titulo') }}
-                            </div>
-                            <div class="col-md-9">
+                        <div class="form-group{{ $errors->has('titulo') ? ' has-error' : '' }}">                           
+                            {{ Form::label('titulo', 'Titulo', array('class' => 'col-md-4 control-label')) }}
+                            
+                            <div class="col-md-6">
                                 {{ Form::text('titulo', $post->titulo, array('class' => 'form-control')) }}
 
                                 @if ($errors->has('titulo'))
@@ -25,11 +24,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('resumen') ? ' has-error' : '' }}">
-                            <div class="col-md-3">
-                                {{ Form::label('resumen', 'Resumen') }}
-                            </div>
-                            <div class="col-md-9">
+                        <div class="form-group{{ $errors->has('resumen') ? ' has-error' : '' }}">                            
+                            {{ Form::label('resumen', 'Resumen', array('class' => 'col-md-4 control-label')) }}
+                            
+                            <div class="col-md-6">
                                 {{ Form::text('resumen', $post->resumen, array('class' => 'form-control')) }}
 
                                 @if ($errors->has('resumen'))
@@ -40,11 +38,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('contenido') ? ' has-error' : '' }}">
-                            <div class="col-md-3"> 
-                                {{ Form::label('contenido', 'Contenido') }}
-                            </div>
-                            <div class="col-md-9">
+                        <div class="form-group{{ $errors->has('contenido') ? ' has-error' : '' }}">                            
+                            {{ Form::label('contenido', 'Contenido', array('class' => 'col-md-4 control-label')) }}
+                            
+                            <div class="col-md-6">
                                 {{ Form::text('contenido', $post->contenido, array('class' => 'form-control'))}}
 
                                 @if ($errors->has('contenido'))
@@ -55,11 +52,10 @@
                             </div>
                         </div>  
 
-                        <div class="form-group{{ $errors->has('palabras') ? ' has-error' : '' }}">
-                            <div class="col-md-3">
-                                {{ Form::label('palabras', 'Palabras') }}
-                            </div>
-                            <div class="col-md-9">
+                        <div class="form-group{{ $errors->has('palabras') ? ' has-error' : '' }}">                           
+                            {{ Form::label('palabras', 'Palabras', array('class' => 'col-md-4 control-label')) }}
+                            
+                            <div class="col-md-6">
                                 {{ Form::text('palabras', $post->palabras, array('class' => 'form-control')) }}
 
                                 @if ($errors->has('palabras'))
@@ -70,11 +66,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('categoria') ? ' has-error' : '' }}">
-                            <div class="col-md-3">
-                                {{ Form::label('categoria', 'Categoria') }}
-                            </div>
-                            <div class="col-md-9">
+                        <div class="form-group{{ $errors->has('categoria') ? ' has-error' : '' }}">                            
+                            {{ Form::label('categoria', 'Categoria', array('class' => 'col-md-4 control-label')) }}
+                            
+                            <div class="col-md-6">
                                 {{ Form::select('categoria', $categorias) }}
 
                                 @if ($errors->has('categoria'))
@@ -86,7 +81,7 @@
                         </div>                      
 
                         <div class="form-group">
-                            <div class="col-md-9 col-md-offset-3">
+                            <div class="col-md-8 col-md-offset-4">
                                 {{ Form::submit('Guardar', array('class' => 'btn btn-primary')) }}                                
                             </div>
                         </div>
