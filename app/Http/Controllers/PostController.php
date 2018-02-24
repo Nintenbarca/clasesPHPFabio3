@@ -150,9 +150,15 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        
-        $post = Post::findOrFail($id);
-        $post->delete();
-        return $this->index();
+
+        if (!Auth::guest()) {
+            
+            $post = Post::findOrFail($id);
+            $post->delete();
+            return $this->index();
+        }else{
+
+            return redirect('/login');
+        }  
     }
 }
