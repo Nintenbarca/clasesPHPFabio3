@@ -98,15 +98,18 @@ class PostController extends Controller
         if (!Auth::guest()) {
             
             $post = Post::findOrFail($id);
-               
-            $categorias = Categoria::all()->toArray();
-            $ids = array_column($categorias, 'id');
-            $nombres = array_column($categorias, 'nombre');
-            $categorias = array_combine($ids, $nombres);
 
-            return view('post/editar', compact('post', 'categorias')); 
+            if ($post->user_id == Auth::user()->id) {
+                $categorias = Categoria::all()->toArray();
+                $ids = array_column($categorias, 'id');
+                $nombres = array_column($categorias, 'nombre');
+                $categorias = array_combine($ids, $nombres);
+
+                return view('post/editar', compact('post', 'categorias'));
+            }else{
+                return $this->index();
+            }
         }else{
-
             return redirect('/login');
         }
     }
@@ -131,13 +134,16 @@ class PostController extends Controller
             ]);
 
             $post = Post::findOrFail($id);
-            $post->titulo = $datos['titulo'];
-            $post->resumen = $datos['resumen'];
-            $post->contenido = $datos['contenido'];        
-            $post->categoria = $datos['categoria'];
-            $post->palabras = $datos['palabras'];        
-            $post->save();
+            if ($post->user_id == Auth::user()->id) {
+                $post->titulo = $datos['titulo'];
+                $post->resumen = $datos['resumen'];
+                $post->contenido = $datos['contenido'];        
+                $post->categoria = $datos['categoria'];
+                $post->palabras = $datos['palabras'];        
+                $post->save();
+            }  
             return $this->show($id);
+
         }else{
             return redirect('/login');
         } 
@@ -154,7 +160,10 @@ class PostController extends Controller
         if (!Auth::guest()) {
             
             $post = Post::findOrFail($id);
-            $post->delete();
+
+            if ($post->user_id == Auth::user()->id) {
+                $post->delete();
+            }
             return $this->index();
         }else{
 
