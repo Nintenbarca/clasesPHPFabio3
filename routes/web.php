@@ -19,6 +19,8 @@ Route::resource('categorias', 'CategoriaController', ['except' => ['show', 'dest
 
 Route::resource('posts', 'PostController');
 
+Route::get('search', 'PostController@search');
+
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');

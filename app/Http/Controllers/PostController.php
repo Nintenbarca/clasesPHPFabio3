@@ -149,6 +149,27 @@ class PostController extends Controller
         } 
     }
 
+    public function search(){
+
+        $query = $_GET['query'];
+        $posts = Post::all();
+        $posts = $this->filter($posts, $query);
+        return view('post/lista', compact('posts'));
+    }
+
+    private function filter($posts, $query){
+        $query = strtolower($query);
+        $result = array();
+        foreach ($posts as $post) {
+            $palabras = $post->palabras;
+            $palabras = strtolower($palabras);
+            if(strpos($palabras, $query) !== false){
+                array_push($result, $post);
+            }
+        }
+        return $result;
+    }
+
     /**
      * Remove the specified resource from storage.
      *
